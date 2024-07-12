@@ -1,0 +1,67 @@
+What are the Top 10 Selling Music Genres in the USA?
+Query for Visualization 1
+
+SELECT g.genreid Genre_id,
+       g.name Genre_Name,
+       c.Country Country,
+       SUM(Invl.UnitPrice*Invl.Quantity) Total_Sales
+FROM Genre g
+JOIN Track tr ON g.GenreId = tr.GenreId
+JOIN InvoiceLine Invl ON tr.TrackId = Invl.TrackId
+JOIN Invoice Inv ON Invl.InvoiceId =Inv.InvoiceId
+JOIN Customer C ON Inv.CustomerId = c.CustomerId
+WHERE country like 'USA'
+GROUP BY 1
+ORDER BY 4 DESC
+LIMIT 10
+
+
+What Media Type is the Most Popular with Customers?
+Query for Visualization 2
+
+SELECT m.MediaTypeId Media_ID,
+       m.Name Media,
+       Count(invl.Quantity) AS Total_Downloads
+FROM MediaType m
+JOIN Track tr ON m.MediaTypeId = tr.MediaTypeId
+JOIN InvoiceLine InvL ON Tr.TrackId = Invl.TrackId
+GROUP BY 1,
+         2
+ORDER BY 3 DESC
+
+
+Who is Writing the most Punk Songs?
+Query for Visualization 3
+
+SELECT a.artistId,
+       a.name,
+       count(t.name) Number_of_Songs
+FROM Artist a
+JOIN Album al ON al.ArtistId = a.ArtistId
+JOIN Track t ON t.AlbumId = al.AlbumId
+JOIN genre g ON g.genreid = t.GenreId
+WHERE g.Name like '%punk%'
+GROUP BY 1
+ORDER BY 3 DESC
+LIMIT 10
+
+Where does the top Customers of the Artist Titãs live?
+Query for Visualization 4
+
+SELECT C.CustomerId AS Customer_ID,
+       C.country AS Country,
+       C.FirstName AS First_Name,
+       C.LastName AS Last_Name,
+       Ar.Name AS Artist_Name,
+       Sum(Invl.UnitPrice) AS Amt_spent
+FROM Artist Ar
+JOIN Album Al ON Ar.ArtistId = Al.ArtistId
+JOIN Track Tr ON Al.AlbumId = Tr.AlbumId
+JOIN InvoiceLine InvL ON Tr.TrackId = Invl.TrackId
+JOIN Invoice Inv ON Invl.InvoiceId = Inv.InvoiceId
+JOIN Customer C ON Inv.CustomerId = C.CustomerId
+WHERE Ar.name like 'Tit%'
+GROUP BY 1,
+         2,
+         3
+ORDER BY 6 DESC
