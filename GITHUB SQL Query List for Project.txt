@@ -1,5 +1,4 @@
 What are the Top 10 Selling Music Genres in the USA?
-Query for Visualization 1
 
 SELECT g.genreid Genre_id,
        g.name Genre_Name,
@@ -17,7 +16,6 @@ LIMIT 10
 
 
 What Media Type is the Most Popular with Customers?
-Query for Visualization 2
 
 SELECT m.MediaTypeId Media_ID,
        m.Name Media,
@@ -31,7 +29,6 @@ ORDER BY 3 DESC
 
 
 Who is Writing the most Punk Songs?
-Query for Visualization 3
 
 SELECT a.artistId,
        a.name,
@@ -46,7 +43,6 @@ ORDER BY 3 DESC
 LIMIT 10
 
 Where does the top Customers of the Artist Titãs live?
-Query for Visualization 4
 
 SELECT C.CustomerId AS Customer_ID,
        C.country AS Country,
